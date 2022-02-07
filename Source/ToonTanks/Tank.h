@@ -16,6 +16,13 @@ class TOONTANKS_API ATank : public ABasePawn
 
 public:
 	ATank();
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void Move(float Value);
+	virtual void Turn(float Value);
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
@@ -24,4 +31,11 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	class USpringArmComponent* SpringComponent;
 
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float Speed;
+
+	UPROPERTY(EditAnywhere, Category = "Movement")
+	float TurnRate;
+
+	APlayerController* PlayerControllerRef;
 };
