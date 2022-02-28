@@ -19,6 +19,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void Move(float Value);
 	virtual void Turn(float Value);
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	// Called when the game starts or when spawned
@@ -37,5 +38,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float TurnRate;
 
+	FVector GetHitPoint();
+
 	APlayerController* PlayerControllerRef;
+
 };

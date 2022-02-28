@@ -27,6 +27,18 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponen
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	PlayerInputComponent->BindAxis("MoveForward", this, &ATank::Move);
 	PlayerInputComponent->BindAxis("Turn", this, &ATank::Turn);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ATank::Fire);
+}
+ 
+// Called every frame
+void ATank::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (PlayerControllerRef)
+	{
+		RotateTurret(GetHitPoint());
+	}
 }
 
 void ATank::Move(float Value)
@@ -44,3 +56,15 @@ void ATank::Turn(float Value)
 	TestRotator.Yaw = ValueNeeded;
 	AddActorLocalRotation(TestRotator, true);
 }
+
+FVector ATank::GetHitPoint()
+{
+	FHitResult HitResult;
+
+	PlayerControllerRef->GetHitResultUnderCursor(
+		ECollisionChannel::ECC_Visibility,
+		false,
+		HitResult);
+
+	return HitResult.ImpactPoint;
+};
