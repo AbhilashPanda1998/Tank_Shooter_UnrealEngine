@@ -19,7 +19,7 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	PlayerControllerRef = Cast<APlayerController>(GetController());
+	TankPlayerController = Cast<APlayerController>(GetController());
 }
 
 void ATank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -35,7 +35,7 @@ void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (PlayerControllerRef)
+	if (TankPlayerController)
 	{
 		RotateTurret(GetHitPoint());
 	}
@@ -57,11 +57,18 @@ void ATank::Turn(float Value)
 	AddActorLocalRotation(TestRotator, true);
 }
 
+void ATank::HandleDestruction()
+{
+	Super::HandleDestruction();
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
+}
+
 FVector ATank::GetHitPoint()
 {
 	FHitResult HitResult;
 
-	PlayerControllerRef->GetHitResultUnderCursor(
+	TankPlayerController->GetHitResultUnderCursor(
 		ECollisionChannel::ECC_Visibility,
 		false,
 		HitResult);

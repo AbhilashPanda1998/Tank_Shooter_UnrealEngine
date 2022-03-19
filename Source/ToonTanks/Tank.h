@@ -20,6 +20,8 @@ public:
 	virtual void Move(float Value);
 	virtual void Turn(float Value);
 	virtual void Tick(float DeltaTime) override;
+	void HandleDestruction();
+	APlayerController* GetTankPlayerController() const { return TankPlayerController; }
 
 protected:
 	// Called when the game starts or when spawned
@@ -40,6 +42,6 @@ private:
 
 	FVector GetHitPoint();
 
-	APlayerController* PlayerControllerRef;
+	APlayerController* TankPlayerController;
 
 };
