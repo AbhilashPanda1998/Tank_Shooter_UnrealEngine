@@ -31,26 +31,31 @@ void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+
+	if (FireSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+	}
+
 }
 
 // Called every frame
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	auto MyOwner = GetOwner();
+	AActor* MyOwner = GetOwner();
 	if (MyOwner == nullptr)
 	{
 		Destroy(); 
 		return;
 	}
 
-	auto MyInstigator = MyOwner->GetInstigatorController();
-	auto DamageTypeClass = UDamageType::StaticClass();
+	AController* MyInstigator = MyOwner->GetInstigatorController();
+	UClass* DamageTypeClass = UDamageType::StaticClass();
 
 	if (OtherActor && OtherActor != this && OtherActor != MyOwner)
 	{
@@ -59,7 +64,14 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 		{
 			UGameplayStatics::SpawnEmitterAtLocation(this, HitEffect, GetActorLocation(), GetActorRotation());
 		}
+
+		if (HitShake)
+		{
+			GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(HitShake);
+		}
 	}
+
+	UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 	Destroy();
 }
 

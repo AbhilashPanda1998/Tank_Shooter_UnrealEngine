@@ -31,7 +31,7 @@ private:
 	
 	class ATank* Tank;
 	class ATankShooterPlayerController* TankPlayerController;
-	float StartDelay = 3.f;
+	float StartDelay = 4.f;
 	int32 AllTowers;
 	int32 GetAllTowers();
 	void HandleGameStart();

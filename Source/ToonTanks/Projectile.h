@@ -38,6 +38,14 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Combat")
 	class UParticleSystemComponent* TrailParticles;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class USoundBase* FireSound;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	USoundBase* HitSound;
+
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<class UCameraShakeBase> HitShake;
 
 public:	
 	// Called every frame
