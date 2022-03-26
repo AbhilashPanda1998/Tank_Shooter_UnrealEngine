@@ -40,6 +40,8 @@ void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDa
 {
 	Health -= Damage;
 
+	OnUpdateHealth.Broadcast(Health, MaxHealth);
+
 	if (Health <= 0.f && TankShooterGameMode)
 	{
 		TankShooterGameMode->ActorDied(DamagedActor);

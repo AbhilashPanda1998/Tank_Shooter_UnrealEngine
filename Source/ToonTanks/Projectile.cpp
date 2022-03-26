@@ -17,7 +17,7 @@ AProjectile::AProjectile()
 	RootComponent = ProjectileMesh;
 
 	ProjectileComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Component"));
-	ProjectileComponent->MaxSpeed = 1300.f;
+	ProjectileComponent->MaxSpeed = 1800.f;
 	ProjectileComponent->InitialSpeed = 1300.f;
 	ProjectileComponent->ShouldApplyGravity();
 	ProjectileComponent->Bounciness = 100.f;
