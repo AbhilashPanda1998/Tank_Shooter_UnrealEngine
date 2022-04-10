@@ -27,9 +27,12 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	float FireRange = 300.f;
-
-	FTimerHandle FireRatetTimeHandler;
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	float TurnRate = 7.f;
+	float CurrentRotationYaw;
 	float FireRate = 2.f;
+	FTimerHandle FireRatetTimeHandler;
 	void CheckFireCondition();
+	void LerpTowerRotation(float DeltaTime);
 	bool IsTankInRange();
 };

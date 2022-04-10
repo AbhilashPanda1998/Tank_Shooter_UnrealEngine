@@ -36,7 +36,7 @@ void ATank::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	if (TankPlayerController)
-	{
+	{  
 		RotateTurret(GetHitPoint());
 	}
 }
